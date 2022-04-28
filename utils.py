@@ -2,7 +2,7 @@ from flask import request
 
 from equipment import Equipment
 from hero_classes import unit_classes
-from unit import PlayerUnit, EnemyUnit, BaseUnit
+from unit import PlayerUnit, EnemyUnit
 
 
 def get_data_for_choosing(hero=False) -> dict:
@@ -17,11 +17,13 @@ def get_data_for_choosing(hero=False) -> dict:
     if hero:
         header = 'Выберите героя'
         data['header'] = header
-    header = 'Выберите врага'
-    data['header'] = header
+    else:
+        header = 'Выберите врага'
+        data['header'] = header
     return data
 
-def get_unit_from_form(hero=False) -> BaseUnit:
+
+def get_unit_from_form(hero=False):
     name = request.form['name']
     armor_name = request.form['armor']
     weapon_name = request.form['weapon']
@@ -30,8 +32,7 @@ def get_unit_from_form(hero=False) -> BaseUnit:
         player = PlayerUnit(name=name, unit_class=unit_classes.get(unit_class))
         player.equip_weapon(Equipment().get_weapon(weapon_name))
         player.equip_armor(Equipment().get_armor(armor_name))
-        return player
-    enemy = EnemyUnit(name=name, unit_class=unit_classes.get(unit_class))
-    enemy.equip_weapon(Equipment().get_weapon(weapon_name))
-    enemy.equip_armor(Equipment().get_armor(armor_name))
-    return enemy
+    else:
+        enemy = EnemyUnit(name=name, unit_class=unit_classes.get(unit_class))
+        enemy.equip_weapon(Equipment().get_weapon(weapon_name))
+        enemy.equip_armor(Equipment().get_armor(armor_name))
