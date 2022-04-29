@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for
-
 from arena import Arena
 from utils import get_data_for_choosing, get_unit_from_form
 
