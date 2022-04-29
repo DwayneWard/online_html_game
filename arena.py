@@ -1,17 +1,16 @@
 from unit import BaseUnit
 
 
-class BaseSingleton(type):
+class MetaSingleton(type):
     _instances = {}
 
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
-            instance = super().__call__(*args, **kwargs)
-            cls._instances[cls] = instance
+            cls._instances[cls] = super().__call__(*args, **kwargs)
         return cls._instances[cls]
 
 
-class Arena(metaclass=BaseSingleton):
+class Arena(metaclass=MetaSingleton):
     STAMINA_PER_ROUND = 1
     player = None
     enemy = None
@@ -52,7 +51,7 @@ class Arena(metaclass=BaseSingleton):
     def player_hit(self) -> str:
         result = self.player.hit(self.enemy)
         turn_result = self.next_turn()
-        return f"{result}\n{turn_result}"
+        return f"{result}{turn_result}"
 
     def player_use_skill(self) -> str:
         result = self.player.use_skill(self.enemy)

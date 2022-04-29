@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from random import randint
 from typing import Optional
-
 from equipment import Equipment, Weapon, Armor
 from hero_classes import UnitClass
 
@@ -15,6 +14,14 @@ class BaseUnit(ABC):
         self.weapon = Equipment().get_weapon('ладошки')
         self.armor = Equipment().get_armor('футболка')
         self._is_skill_used = False
+
+    @property
+    def health_points(self):
+        return round(self.hp, 1)
+
+    @property
+    def stamina_points(self):
+        return round(self.stamina, 1)
 
     def equip_weapon(self, weapon: Weapon) -> str:
         self.weapon = weapon
