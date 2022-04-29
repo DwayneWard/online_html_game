@@ -2,7 +2,7 @@ version: '3.10'
 
 services:
   app:
-    build: ..
+    image: dwayneward/online_html_game:version-1
     command: gunicorn --bind 0.0.0.0:5000 wsgi:app
     restart: always
 
